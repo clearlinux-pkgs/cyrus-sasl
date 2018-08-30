@@ -1,1 +1,17 @@
 --with-rc4=no
+--with-configdir=/usr/lib/sasl2:/etc/sasl2
+--disable-java
+--disable-krb4
+--enable-gssapi
+--with-gss_impl=mit
+--with-saslauthd=/run/saslauthd
+--with-devrandom=/dev/urandom
+--enable-anon 
+--enable-cram
+--enable-digest 
+--enable-ntlm 
+--enable-plain 
+--enable-login
+--enable-alwaystrue 
+--enable-httpform 
+--disable-sql

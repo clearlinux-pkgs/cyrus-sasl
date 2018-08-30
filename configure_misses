@@ -6,23 +6,14 @@ Configure miss: dn_expand
 Configure miss: dns_lookup
 Configure miss: if DB handle is kept open in SASLDB
 Configure miss: underscore before symbols
-Configure miss: pam/pam_appl.h usability
-Configure miss: pam/pam_appl.h presence
-Configure miss: pam/pam_appl.h
-Configure miss: pam_start
 Configure miss: if I should include pwcheck
-Configure miss: if I should include the alwaystrue verifier
 Configure miss: RSAPublicEncrypt in -lrsaref
 Configure miss: des_cbc_encrypt in -lcrypto
 Configure miss: opiechallenge in -lopie
 Configure miss: OPIE
 Configure miss: crypt
 Configure miss: res_search in -lresolv
-Configure miss: gss_unwrap in -lgssapi
 Configure miss: gss_unwrap in -lgssapi_krb5
-Configure miss: csf_gss_acq_user in -lgss
-Configure miss: csf_gss_acq_user in -lgss
-Configure miss: gss_unwrap in -lgss
 Configure miss: to include LDAP support
 Configure miss: dmalloc library
 Configure miss: sfio library
