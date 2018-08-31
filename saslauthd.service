@@ -6,7 +6,7 @@ Type=forking
 PIDFile=/run/saslauthd/saslauthd.pid
 Environment="MECH=pam"
 Environment="FLAGS="
-EnvironmentFile=/etc/sysconfig/saslauthd
+EnvironmentFile=-/etc/sysconfig/saslauthd
 ExecStart=/usr/sbin/saslauthd -a $MECH $FLAGS
 RuntimeDirectory=saslauthd
 
