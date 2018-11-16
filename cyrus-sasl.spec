@@ -4,18 +4,18 @@
 #
 Name     : cyrus-sasl
 Version  : 2.1.27.rc7.nodlcompatorsrp
-Release  : 5
+Release  : 6
 URL      : https://src.fedoraproject.org/repo/pkgs/rpms/cyrus-sasl/cyrus-sasl-2.1.27-rc7-nodlcompatorsrp.tar.gz/sha512/8ecb21e82b2ca51bbc5ae08b2b68f63e5e6abdd5c8990cd30da3d35a5c6778689a7670769cddb1dca2d86c07a0316fb86ed18ac139e6b2586d880c9cce4b9a64/cyrus-sasl-2.1.27-rc7-nodlcompatorsrp.tar.gz
 Source0  : https://src.fedoraproject.org/repo/pkgs/rpms/cyrus-sasl/cyrus-sasl-2.1.27-rc7-nodlcompatorsrp.tar.gz/sha512/8ecb21e82b2ca51bbc5ae08b2b68f63e5e6abdd5c8990cd30da3d35a5c6778689a7670769cddb1dca2d86c07a0316fb86ed18ac139e6b2586d880c9cce4b9a64/cyrus-sasl-2.1.27-rc7-nodlcompatorsrp.tar.gz
 Source1  : saslauthd.service
 Summary  : SASL API implementation
 Group    : Development/Tools
 License  : BSD-3-Clause-Attribution OpenSSL
-Requires: cyrus-sasl-bin
-Requires: cyrus-sasl-lib
-Requires: cyrus-sasl-config
-Requires: cyrus-sasl-license
-Requires: cyrus-sasl-man
+Requires: cyrus-sasl-bin = %{version}-%{release}
+Requires: cyrus-sasl-lib = %{version}-%{release}
+Requires: cyrus-sasl-license = %{version}-%{release}
+Requires: cyrus-sasl-man = %{version}-%{release}
+Requires: cyrus-sasl-services = %{version}-%{release}
 BuildRequires : Linux-PAM-dev
 BuildRequires : Sphinx
 BuildRequires : buildreq-cpan
@@ -36,28 +36,20 @@ work in progress.
 %package bin
 Summary: bin components for the cyrus-sasl package.
 Group: Binaries
-Requires: cyrus-sasl-config
-Requires: cyrus-sasl-license
-Requires: cyrus-sasl-man
+Requires: cyrus-sasl-license = %{version}-%{release}
+Requires: cyrus-sasl-man = %{version}-%{release}
+Requires: cyrus-sasl-services = %{version}-%{release}
 
 %description bin
 bin components for the cyrus-sasl package.
 
 
-%package config
-Summary: config components for the cyrus-sasl package.
-Group: Default
-
-%description config
-config components for the cyrus-sasl package.
-
-
 %package dev
 Summary: dev components for the cyrus-sasl package.
 Group: Development
-Requires: cyrus-sasl-lib
-Requires: cyrus-sasl-bin
-Provides: cyrus-sasl-devel
+Requires: cyrus-sasl-lib = %{version}-%{release}
+Requires: cyrus-sasl-bin = %{version}-%{release}
+Provides: cyrus-sasl-devel = %{version}-%{release}
 
 %description dev
 dev components for the cyrus-sasl package.
@@ -66,7 +58,7 @@ dev components for the cyrus-sasl package.
 %package lib
 Summary: lib components for the cyrus-sasl package.
 Group: Libraries
-Requires: cyrus-sasl-license
+Requires: cyrus-sasl-license = %{version}-%{release}
 
 %description lib
 lib components for the cyrus-sasl package.
@@ -88,6 +80,14 @@ Group: Default
 man components for the cyrus-sasl package.
 
 
+%package services
+Summary: services components for the cyrus-sasl package.
+Group: Systemd services
+
+%description services
+services components for the cyrus-sasl package.
+
+
 %prep
 %setup -q -n cyrus-sasl-2.1.27
 %patch1 -p1
@@ -97,7 +97,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1535731626
+export SOURCE_DATE_EPOCH=1542394494
 %reconfigure --disable-static --with-rc4=no \
 --with-configdir=/usr/lib/sasl2:/etc/sasl2 \
 --disable-java \
@@ -125,12 +125,12 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 check
 
 %install
-export SOURCE_DATE_EPOCH=1535731626
+export SOURCE_DATE_EPOCH=1542394494
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/share/doc/cyrus-sasl
-cp COPYING %{buildroot}/usr/share/doc/cyrus-sasl/COPYING
-cp mac/libdes/src/COPYRIGHT %{buildroot}/usr/share/doc/cyrus-sasl/mac_libdes_src_COPYRIGHT
-cp saslauthd/COPYING %{buildroot}/usr/share/doc/cyrus-sasl/saslauthd_COPYING
+mkdir -p %{buildroot}/usr/share/package-licenses/cyrus-sasl
+cp COPYING %{buildroot}/usr/share/package-licenses/cyrus-sasl/COPYING
+cp mac/libdes/src/COPYRIGHT %{buildroot}/usr/share/package-licenses/cyrus-sasl/mac_libdes_src_COPYRIGHT
+cp saslauthd/COPYING %{buildroot}/usr/share/package-licenses/cyrus-sasl/saslauthd_COPYING
 %make_install
 mkdir -p %{buildroot}/usr/lib/systemd/system
 install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/saslauthd.service
@@ -145,10 +145,6 @@ install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/saslauthd.service
 /usr/bin/sasldblistusers2
 /usr/bin/saslpasswd2
 /usr/bin/testsaslauthd
-
-%files config
-%defattr(-,root,root,-)
-/usr/lib/systemd/system/saslauthd.service
 
 %files dev
 %defattr(-,root,root,-)
@@ -238,14 +234,18 @@ install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/saslauthd.service
 /usr/lib64/libsasl2.so.3.0.0
 
 %files license
-%defattr(-,root,root,-)
-/usr/share/doc/cyrus-sasl/COPYING
-/usr/share/doc/cyrus-sasl/mac_libdes_src_COPYRIGHT
-/usr/share/doc/cyrus-sasl/saslauthd_COPYING
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/cyrus-sasl/COPYING
+/usr/share/package-licenses/cyrus-sasl/mac_libdes_src_COPYRIGHT
+/usr/share/package-licenses/cyrus-sasl/saslauthd_COPYING
 
 %files man
-%defattr(-,root,root,-)
+%defattr(0644,root,root,0755)
 /usr/share/man/man8/pluginviewer.8
 /usr/share/man/man8/saslauthd.8
 /usr/share/man/man8/sasldblistusers2.8
 /usr/share/man/man8/saslpasswd2.8
+
+%files services
+%defattr(-,root,root,-)
+/usr/lib/systemd/system/saslauthd.service
