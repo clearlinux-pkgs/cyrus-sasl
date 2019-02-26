@@ -4,7 +4,7 @@
 #
 Name     : cyrus-sasl
 Version  : 2.1.27.rc7.nodlcompatorsrp
-Release  : 7
+Release  : 8
 URL      : https://src.fedoraproject.org/repo/pkgs/rpms/cyrus-sasl/cyrus-sasl-2.1.27-rc7-nodlcompatorsrp.tar.gz/sha512/8ecb21e82b2ca51bbc5ae08b2b68f63e5e6abdd5c8990cd30da3d35a5c6778689a7670769cddb1dca2d86c07a0316fb86ed18ac139e6b2586d880c9cce4b9a64/cyrus-sasl-2.1.27-rc7-nodlcompatorsrp.tar.gz
 Source0  : https://src.fedoraproject.org/repo/pkgs/rpms/cyrus-sasl/cyrus-sasl-2.1.27-rc7-nodlcompatorsrp.tar.gz/sha512/8ecb21e82b2ca51bbc5ae08b2b68f63e5e6abdd5c8990cd30da3d35a5c6778689a7670769cddb1dca2d86c07a0316fb86ed18ac139e6b2586d880c9cce4b9a64/cyrus-sasl-2.1.27-rc7-nodlcompatorsrp.tar.gz
 Source1  : saslauthd.service
@@ -97,7 +97,8 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1542394494
+export SOURCE_DATE_EPOCH=1551153565
+export LDFLAGS="${LDFLAGS} -fno-lto"
 %reconfigure --disable-static --with-rc4=no \
 --with-configdir=/usr/lib/sasl2:/etc/sasl2 \
 --disable-java \
@@ -114,7 +115,8 @@ export SOURCE_DATE_EPOCH=1542394494
 --enable-login \
 --enable-alwaystrue \
 --enable-httpform \
---disable-sql
+--disable-sql \
+--with-dblib=gdbm
 make
 
 %check
@@ -125,7 +127,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 check
 
 %install
-export SOURCE_DATE_EPOCH=1542394494
+export SOURCE_DATE_EPOCH=1551153565
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/cyrus-sasl
 cp COPYING %{buildroot}/usr/share/package-licenses/cyrus-sasl/COPYING

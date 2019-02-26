@@ -15,3 +15,4 @@
 --enable-alwaystrue 
 --enable-httpform 
 --disable-sql
+--with-dblib=gdbm
