@@ -13,7 +13,7 @@ Configure miss: opiechallenge in -lopie
 Configure miss: OPIE
 Configure miss: crypt
 Configure miss: res_search in -lresolv
-Configure miss: gss_unwrap in -lgssapi_krb5
+Configure miss: gsskrb5_register_acceptor_identity
 Configure miss: to include LDAP support
 Configure miss: dmalloc library
 Configure miss: sfio library
@@ -23,9 +23,6 @@ Configure miss: des.h
 Configure miss: varargs.h usability
 Configure miss: varargs.h presence
 Configure miss: varargs.h
-Configure miss: krb5.h usability
-Configure miss: krb5.h presence
-Configure miss: krb5.h
 Configure miss: whether you have sa_len in struct sockaddr
 Configure miss: getpassphrase
 Configure miss: perl module Pod::POM::View::Restructured

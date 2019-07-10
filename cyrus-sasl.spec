@@ -4,7 +4,7 @@
 #
 Name     : cyrus-sasl
 Version  : 2.1.27.rc7.nodlcompatorsrp
-Release  : 9
+Release  : 10
 URL      : https://src.fedoraproject.org/repo/pkgs/rpms/cyrus-sasl/cyrus-sasl-2.1.27-rc7-nodlcompatorsrp.tar.gz/sha512/8ecb21e82b2ca51bbc5ae08b2b68f63e5e6abdd5c8990cd30da3d35a5c6778689a7670769cddb1dca2d86c07a0316fb86ed18ac139e6b2586d880c9cce4b9a64/cyrus-sasl-2.1.27-rc7-nodlcompatorsrp.tar.gz
 Source0  : https://src.fedoraproject.org/repo/pkgs/rpms/cyrus-sasl/cyrus-sasl-2.1.27-rc7-nodlcompatorsrp.tar.gz/sha512/8ecb21e82b2ca51bbc5ae08b2b68f63e5e6abdd5c8990cd30da3d35a5c6778689a7670769cddb1dca2d86c07a0316fb86ed18ac139e6b2586d880c9cce4b9a64/cyrus-sasl-2.1.27-rc7-nodlcompatorsrp.tar.gz
 Source1  : saslauthd.service
@@ -22,6 +22,7 @@ BuildRequires : buildreq-cpan
 BuildRequires : gdbm-dev
 BuildRequires : krb5-dev
 BuildRequires : openssl-dev
+BuildRequires : pkgconfig(com_err)
 BuildRequires : pkgconfig(krb5)
 BuildRequires : pkgconfig(openssl)
 Patch1: cyrus-sasl-no_rpath.patch
@@ -36,7 +37,6 @@ work in progress.
 Summary: bin components for the cyrus-sasl package.
 Group: Binaries
 Requires: cyrus-sasl-license = %{version}-%{release}
-Requires: cyrus-sasl-man = %{version}-%{release}
 Requires: cyrus-sasl-services = %{version}-%{release}
 
 %description bin
@@ -49,6 +49,7 @@ Group: Development
 Requires: cyrus-sasl-lib = %{version}-%{release}
 Requires: cyrus-sasl-bin = %{version}-%{release}
 Provides: cyrus-sasl-devel = %{version}-%{release}
+Requires: cyrus-sasl = %{version}-%{release}
 
 %description dev
 dev components for the cyrus-sasl package.
@@ -95,9 +96,13 @@ services components for the cyrus-sasl package.
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1551154352
-export LDFLAGS="${LDFLAGS} -fno-lto"
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1562792950
+export GCC_IGNORE_WERROR=1
+export CFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$CFLAGS -fno-lto "
+export FFLAGS="$CFLAGS -fno-lto "
+export CXXFLAGS="$CXXFLAGS -fno-lto "
 %reconfigure --disable-static --with-rc4=no \
 --with-configdir=/usr/lib/sasl2:/etc/sasl2 \
 --disable-java \
@@ -119,14 +124,14 @@ export LDFLAGS="${LDFLAGS} -fno-lto"
 make
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 check
 
 %install
-export SOURCE_DATE_EPOCH=1551154352
+export SOURCE_DATE_EPOCH=1562792950
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/cyrus-sasl
 cp COPYING %{buildroot}/usr/share/package-licenses/cyrus-sasl/COPYING
@@ -213,6 +218,12 @@ install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/saslauthd.service
 /usr/lib/sasl2/libdigestmd5.so
 /usr/lib/sasl2/libdigestmd5.so.3
 /usr/lib/sasl2/libdigestmd5.so.3.0.0
+/usr/lib/sasl2/libgs2.so
+/usr/lib/sasl2/libgs2.so.3
+/usr/lib/sasl2/libgs2.so.3.0.0
+/usr/lib/sasl2/libgssapiv2.so
+/usr/lib/sasl2/libgssapiv2.so.3
+/usr/lib/sasl2/libgssapiv2.so.3.0.0
 /usr/lib/sasl2/liblogin.so
 /usr/lib/sasl2/liblogin.so.3
 /usr/lib/sasl2/liblogin.so.3.0.0
