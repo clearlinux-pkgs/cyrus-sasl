@@ -4,7 +4,7 @@
 #
 Name     : cyrus-sasl
 Version  : 2.1.27.rc7.nodlcompatorsrp
-Release  : 10
+Release  : 11
 URL      : https://src.fedoraproject.org/repo/pkgs/rpms/cyrus-sasl/cyrus-sasl-2.1.27-rc7-nodlcompatorsrp.tar.gz/sha512/8ecb21e82b2ca51bbc5ae08b2b68f63e5e6abdd5c8990cd30da3d35a5c6778689a7670769cddb1dca2d86c07a0316fb86ed18ac139e6b2586d880c9cce4b9a64/cyrus-sasl-2.1.27-rc7-nodlcompatorsrp.tar.gz
 Source0  : https://src.fedoraproject.org/repo/pkgs/rpms/cyrus-sasl/cyrus-sasl-2.1.27-rc7-nodlcompatorsrp.tar.gz/sha512/8ecb21e82b2ca51bbc5ae08b2b68f63e5e6abdd5c8990cd30da3d35a5c6778689a7670769cddb1dca2d86c07a0316fb86ed18ac139e6b2586d880c9cce4b9a64/cyrus-sasl-2.1.27-rc7-nodlcompatorsrp.tar.gz
 Source1  : saslauthd.service
@@ -97,7 +97,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1562792950
+export SOURCE_DATE_EPOCH=1571337427
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$CFLAGS -fno-lto "
@@ -131,12 +131,12 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 check
 
 %install
-export SOURCE_DATE_EPOCH=1562792950
+export SOURCE_DATE_EPOCH=1571337427
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/cyrus-sasl
-cp COPYING %{buildroot}/usr/share/package-licenses/cyrus-sasl/COPYING
-cp mac/libdes/src/COPYRIGHT %{buildroot}/usr/share/package-licenses/cyrus-sasl/mac_libdes_src_COPYRIGHT
-cp saslauthd/COPYING %{buildroot}/usr/share/package-licenses/cyrus-sasl/saslauthd_COPYING
+cp %{_builddir}/cyrus-sasl-2.1.27/COPYING %{buildroot}/usr/share/package-licenses/cyrus-sasl/86af2c4321b2d4b4f092b31fd897444a701c0085
+cp %{_builddir}/cyrus-sasl-2.1.27/mac/libdes/src/COPYRIGHT %{buildroot}/usr/share/package-licenses/cyrus-sasl/abf2d0fe9fda25370257deb68b2d851533d1e177
+cp %{_builddir}/cyrus-sasl-2.1.27/saslauthd/COPYING %{buildroot}/usr/share/package-licenses/cyrus-sasl/d577bf4daf10875d3b56449ae8cca20aaf86ff05
 %make_install
 mkdir -p %{buildroot}/usr/lib/systemd/system
 install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/saslauthd.service
@@ -247,9 +247,9 @@ install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/saslauthd.service
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/cyrus-sasl/COPYING
-/usr/share/package-licenses/cyrus-sasl/mac_libdes_src_COPYRIGHT
-/usr/share/package-licenses/cyrus-sasl/saslauthd_COPYING
+/usr/share/package-licenses/cyrus-sasl/86af2c4321b2d4b4f092b31fd897444a701c0085
+/usr/share/package-licenses/cyrus-sasl/abf2d0fe9fda25370257deb68b2d851533d1e177
+/usr/share/package-licenses/cyrus-sasl/d577bf4daf10875d3b56449ae8cca20aaf86ff05
 
 %files man
 %defattr(0644,root,root,0755)
