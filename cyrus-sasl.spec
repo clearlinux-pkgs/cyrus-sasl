@@ -4,7 +4,7 @@
 #
 Name     : cyrus-sasl
 Version  : 2.1.27.nodlcompatorsrp
-Release  : 12
+Release  : 13
 URL      : https://src.fedoraproject.org/repo/pkgs/rpms/cyrus-sasl/cyrus-sasl-2.1.27-nodlcompatorsrp.tar.gz/sha512/86c45f729d5cf0aacc20c880d1cea5d927536c602d5d5866838036f00babfd5b89cb94d14a2c6ca4d78073f8f5c08da0f1f64a9a32b26c5f1e28b0d9246fd38e/cyrus-sasl-2.1.27-nodlcompatorsrp.tar.gz
 Source0  : https://src.fedoraproject.org/repo/pkgs/rpms/cyrus-sasl/cyrus-sasl-2.1.27-nodlcompatorsrp.tar.gz/sha512/86c45f729d5cf0aacc20c880d1cea5d927536c602d5d5866838036f00babfd5b89cb94d14a2c6ca4d78073f8f5c08da0f1f64a9a32b26c5f1e28b0d9246fd38e/cyrus-sasl-2.1.27-nodlcompatorsrp.tar.gz
 Source1  : saslauthd.service
@@ -25,6 +25,7 @@ BuildRequires : pkgconfig(com_err)
 BuildRequires : pkgconfig(krb5)
 BuildRequires : pkgconfig(openssl)
 Patch1: cyrus-sasl-no_rpath.patch
+Patch2: CVE-2019-19906.patch
 
 %description
 This is an implemention of the SASL API, useful for adding
@@ -91,18 +92,19 @@ services components for the cyrus-sasl package.
 %setup -q -n cyrus-sasl-2.1.27
 cd %{_builddir}/cyrus-sasl-2.1.27
 %patch1 -p1
+%patch2 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1579196482
+export SOURCE_DATE_EPOCH=1582071577
 export GCC_IGNORE_WERROR=1
-export CFLAGS="$CFLAGS -fno-lto "
-export FCFLAGS="$CFLAGS -fno-lto "
-export FFLAGS="$CFLAGS -fno-lto "
-export CXXFLAGS="$CXXFLAGS -fno-lto "
+export CFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FCFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
+export CXXFLAGS="$CXXFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
 %reconfigure --disable-static --with-rc4=no \
 --with-configdir=/usr/lib/sasl2:/etc/sasl2 \
 --disable-java \
@@ -131,7 +133,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 check
 
 %install
-export SOURCE_DATE_EPOCH=1579196482
+export SOURCE_DATE_EPOCH=1582071577
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/cyrus-sasl
 cp %{_builddir}/cyrus-sasl-2.1.27/COPYING %{buildroot}/usr/share/package-licenses/cyrus-sasl/86af2c4321b2d4b4f092b31fd897444a701c0085
