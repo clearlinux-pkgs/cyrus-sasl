@@ -1,7 +1,5 @@
-2.1.27.rc7.nodlcompatorsrp
+2.1.27.nodlcompatorsrp
 Linux-PAM-dev
 Sphinx
-db-dev
 gdbm-dev
-krb5-dev
 openssl-dev
