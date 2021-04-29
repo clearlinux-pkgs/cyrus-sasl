@@ -4,7 +4,7 @@
 #
 Name     : cyrus-sasl
 Version  : 2.1.27.nodlcompatorsrp
-Release  : 13
+Release  : 14
 URL      : https://src.fedoraproject.org/repo/pkgs/rpms/cyrus-sasl/cyrus-sasl-2.1.27-nodlcompatorsrp.tar.gz/sha512/86c45f729d5cf0aacc20c880d1cea5d927536c602d5d5866838036f00babfd5b89cb94d14a2c6ca4d78073f8f5c08da0f1f64a9a32b26c5f1e28b0d9246fd38e/cyrus-sasl-2.1.27-nodlcompatorsrp.tar.gz
 Source0  : https://src.fedoraproject.org/repo/pkgs/rpms/cyrus-sasl/cyrus-sasl-2.1.27-nodlcompatorsrp.tar.gz/sha512/86c45f729d5cf0aacc20c880d1cea5d927536c602d5d5866838036f00babfd5b89cb94d14a2c6ca4d78073f8f5c08da0f1f64a9a32b26c5f1e28b0d9246fd38e/cyrus-sasl-2.1.27-nodlcompatorsrp.tar.gz
 Source1  : saslauthd.service
@@ -101,10 +101,10 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
 export SOURCE_DATE_EPOCH=1582071577
 export GCC_IGNORE_WERROR=1
-export CFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
-export FCFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
-export FFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
-export CXXFLAGS="$CXXFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
+export CFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -fzero-call-used-regs=used "
+export FCFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -fzero-call-used-regs=used "
+export FFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -fzero-call-used-regs=used "
+export CXXFLAGS="$CXXFLAGS -fno-lto -fstack-protector-strong -fzero-call-used-regs=used "
 %reconfigure --disable-static --with-rc4=no \
 --with-configdir=/usr/lib/sasl2:/etc/sasl2 \
 --disable-java \
