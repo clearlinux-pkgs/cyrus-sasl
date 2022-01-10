@@ -4,7 +4,7 @@
 #
 Name     : cyrus-sasl
 Version  : 2.1.27.nodlcompatorsrp
-Release  : 14
+Release  : 15
 URL      : https://src.fedoraproject.org/repo/pkgs/rpms/cyrus-sasl/cyrus-sasl-2.1.27-nodlcompatorsrp.tar.gz/sha512/86c45f729d5cf0aacc20c880d1cea5d927536c602d5d5866838036f00babfd5b89cb94d14a2c6ca4d78073f8f5c08da0f1f64a9a32b26c5f1e28b0d9246fd38e/cyrus-sasl-2.1.27-nodlcompatorsrp.tar.gz
 Source0  : https://src.fedoraproject.org/repo/pkgs/rpms/cyrus-sasl/cyrus-sasl-2.1.27-nodlcompatorsrp.tar.gz/sha512/86c45f729d5cf0aacc20c880d1cea5d927536c602d5d5866838036f00babfd5b89cb94d14a2c6ca4d78073f8f5c08da0f1f64a9a32b26c5f1e28b0d9246fd38e/cyrus-sasl-2.1.27-nodlcompatorsrp.tar.gz
 Source1  : saslauthd.service
@@ -17,13 +17,13 @@ Requires: cyrus-sasl-license = %{version}-%{release}
 Requires: cyrus-sasl-man = %{version}-%{release}
 Requires: cyrus-sasl-services = %{version}-%{release}
 BuildRequires : Linux-PAM-dev
-BuildRequires : Sphinx
 BuildRequires : buildreq-cpan
 BuildRequires : gdbm-dev
 BuildRequires : openssl-dev
 BuildRequires : pkgconfig(com_err)
 BuildRequires : pkgconfig(krb5)
 BuildRequires : pkgconfig(openssl)
+BuildRequires : pypi-sphinx
 Patch1: cyrus-sasl-no_rpath.patch
 Patch2: CVE-2019-19906.patch
 
@@ -99,11 +99,11 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1582071577
+export SOURCE_DATE_EPOCH=1641854640
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -fzero-call-used-regs=used "
-export FCFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -fzero-call-used-regs=used "
-export FFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -fzero-call-used-regs=used "
+export FCFLAGS="$FFLAGS -fno-lto -fstack-protector-strong -fzero-call-used-regs=used "
+export FFLAGS="$FFLAGS -fno-lto -fstack-protector-strong -fzero-call-used-regs=used "
 export CXXFLAGS="$CXXFLAGS -fno-lto -fstack-protector-strong -fzero-call-used-regs=used "
 %reconfigure --disable-static --with-rc4=no \
 --with-configdir=/usr/lib/sasl2:/etc/sasl2 \
@@ -130,10 +130,10 @@ export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-make VERBOSE=1 V=1 check
+make check
 
 %install
-export SOURCE_DATE_EPOCH=1582071577
+export SOURCE_DATE_EPOCH=1641854640
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/cyrus-sasl
 cp %{_builddir}/cyrus-sasl-2.1.27/COPYING %{buildroot}/usr/share/package-licenses/cyrus-sasl/86af2c4321b2d4b4f092b31fd897444a701c0085
