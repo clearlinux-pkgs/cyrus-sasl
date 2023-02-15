@@ -1,5 +1,5 @@
 PKG_NAME := cyrus-sasl
-URL = https://src.fedoraproject.org/repo/pkgs/rpms/cyrus-sasl/cyrus-sasl-2.1.27-nodlcompatorsrp.tar.gz/sha512/86c45f729d5cf0aacc20c880d1cea5d927536c602d5d5866838036f00babfd5b89cb94d14a2c6ca4d78073f8f5c08da0f1f64a9a32b26c5f1e28b0d9246fd38e/cyrus-sasl-2.1.27-nodlcompatorsrp.tar.gz
+URL = https://src.fedoraproject.org/repo/pkgs/rpms/cyrus-sasl/cyrus-sasl-2.1.28-nodlcompatorsrp.tar.gz/sha512/9a80b363718774ac5b9b8b71c7eba7c48d760296542b4d545010ba4fc463d0da807fc8efd314381467e4c44b3b055082882f3ac03e8f829db2a543e271d70cbc/cyrus-sasl-2.1.28-nodlcompatorsrp.tar.gz
 ARCHIVES = 
 
 include ../common/Makefile.common
